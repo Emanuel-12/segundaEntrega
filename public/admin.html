@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administradores</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <button id="traerAdmin">Traer Admin</button>
+    <table id="admin"></table>
+    <script>
+                let btnAdmin=document.getElementById('traerAdmin');
+                let tableAdmin=document.getElementById('admin');
+                btnAdmin.addEventListener('click',traerAdmin);
+                function traerAdmin(){
+            fetch('/admin')
+            .then(response => response.json())
+            .then(data => {
+                let tbody2=document.createElement('tbody');
+                let listaAdmin=data
+                console.log(data);
+                for(let i=0;i<listaAdmin.length;i++){
+                let tr=document.createElement('tr');
+                let tdEmail=document.createElement('td');
+                let tdNombre=document.createElement('td');
+                tdEmail.innerHTML=listaAdmin[i].email;
+                tdNombre.innerHTML=listaAdmin[i].nombre;
+                tr.appendChild(tdEmail);
+                tr.appendChild(tdNombre);
+                tbody2.appendChild(tr);
+                
+            }
+            tableAdmin.appendChild(tbody2);
+            });
+            
+        }
+    </script>
+</body>
+</html>

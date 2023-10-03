@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <button id="traerProductos">Traer Productos</button> 
+    <table id="productos"></table>
+    <script>
+                let btnProductos=document.getElementById('traerProductos');
+                let tableProductos=document.getElementById('productos');
+                btnProductos.addEventListener('click',traerProductos);
+                function traerProductos(){
+            fetch('/producto')
+            .then(response => response.json())
+            .then(data => {
+                let listaProducto=data
+                let tbody4=document.createElement('tbody');
+                console.log(data);
+                for(let i=0;i<listaProducto.length;i++){
+                let tr=document.createElement('tr');
+                let tdNombre=document.createElement('td');
+                let tdEmail=document.createElement('td');
+                let tdDesc=document.createElement('td');
+                let tdPrecio=document.createElement('td');
+                let tdImagen=document.createElement('td');
+                let tdStock=document.createElement('td');
+
+                tdNombre.innerHTML=listaProducto[i].nombre;
+                tdDesc.innerHTML=listaProducto[i].descripcion;
+                tdPrecio.innerHTML=listaProducto[i].precio;
+
+                tdStock.innerHTML=listaProducto[i].stock;
+
+                tr.appendChild(tdNombre);
+                tr.appendChild(tdDesc);
+                tr.appendChild(tdPrecio);
+
+                tr.appendChild(tdStock);
+                
+                tbody4.appendChild(tr);
+                
+            }
+            tableProductos.appendChild(tbody4);
+            });
+            
+        }
+    </script>
+</body>
+</html>

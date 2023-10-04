@@ -7,12 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const MONGO_URL_LOCAL = process.env.MONGO_LOCAL;
 
-console.log(MONGO_URL_LOCAL);
-
-
 const MONGO_URL_ATLAS = process.env.MONGO_ATLAS;
-console.log(MONGO_URL_ATLAS);
-
 
 
 

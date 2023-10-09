@@ -17,12 +17,15 @@ exports.getusuarioById=async (req,res)=>{
         if(!usuario ){
             return res.status(404).json({error:"usuario no encontrado"});
         }else if(usuario.password===password){
-            res.status(201).json({msg:`Bienvenido ${usuario.nombre}`});
+            // res.status(201).json({msg:`Bienvenido ${usuario.nombre}`});
+            res.redirect('/usuario.html');
         }else{
             res.status(404).json({error:"contraseña incorrecta"});
+            // res.redirect('/public/error.html');
         }
     }catch(err){
         res.status(500).json({error:"error al obtener usuario"});
+        // res.redirect('/public/error.html');
     }
 }
 
@@ -36,7 +39,7 @@ exports.crearusuario=async (req,res)=>{
             nombre:username
         });
         await nuevousuario.save();
-        res.status(201).json(nuevousuario);
+        res.redirect('/usuario.html');
     }catch(err){
         res.status(500).json({error:"error al crear usuario"});
     }

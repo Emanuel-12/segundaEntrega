@@ -43,7 +43,6 @@ app.post('/registrar', (req, res) => {
 
       
             if (usuario) {
-                
                 res.status(404).send('Usuario ya existe');
             } else {
                 let documento={
@@ -52,12 +51,13 @@ app.post('/registrar', (req, res) => {
                     password:passwordRegistrar
                 }
                 console.log(documento);
-                    await dbo.collection('administradores').insertOne(documento, (err, res) => {
+                    await dbo.collection('administradores').insertOne(documento, (err, result) => {
                         if(err) throw err;
                         console.log(`Documento insertado en la colección administradores`);
+                        res.redirect('./public/admin.htmlhtml');
                         db.close();
+                       
                     });              
-                    res.send('Usuario registrado');
             }
         } catch (error) {
             console.error(error);
@@ -65,6 +65,7 @@ app.post('/registrar', (req, res) => {
         }
     })
 })
+
 
 
 
@@ -89,7 +90,7 @@ app.post('/login', (req, res) => {
             if (usuario) {
                
                 if(usuario.password==password){
-                    res.json(`bienvenido ${usuario.username}`);
+                    res.redirect('/usuario.html');
                 }else{
 
                     res.json({message:'contraseña incorrecta'})
@@ -114,9 +115,11 @@ const adminRouter = require('./router/adminRouter');
 const usuarioRouter = require('./router/usuarioRouter');
 const productoRouter = require('./router/productoRouter');
 
+
 app.use('/admin', adminRouter);
 app.use('/usuario', usuarioRouter);
 app.use('/producto', productoRouter);
+
 
 app.listen(port, () => {
     console.log(`escuchando en el puerto http://localhost:${port}`);
